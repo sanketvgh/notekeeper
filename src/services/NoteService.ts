@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { NOTE_BOOK_ID } from './NotebookService';
+import { DEFAULT_NOTEBOOKS_ID } from './NotebookService';
 
 export const ACTION_TYPES = {
   CREATE_NOTE: 1,
@@ -44,11 +44,11 @@ class NoteService {
   }
 
   makeNotesPrivate(notesIds: ID[]) {
-    this.moveTo(NOTE_BOOK_ID.PRIVATE, notesIds);
+    this.moveTo(DEFAULT_NOTEBOOKS_ID.PRIVATE, notesIds);
   }
 
   removeNotes(notesIds: ID[]) {
-    this.moveTo(NOTE_BOOK_ID.PRIVATE, notesIds);
+    this.moveTo(DEFAULT_NOTEBOOKS_ID.PRIVATE, notesIds);
   }
 
   removeNotebook(note: Note) {

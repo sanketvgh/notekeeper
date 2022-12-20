@@ -1,5 +1,11 @@
 import React from 'react';
-import NotebookService, { NotebookAction, ACTION_TYPES } from '../services/NotebookService';
+import NotebookService, {
+  NotebookAction,
+  ACTION_TYPES,
+  DefaultNotebookType,
+  DEFAULT_NOTEBOOKS,
+  DEFAULT_NOTEBOOKS_ID,
+} from '../services/NotebookService';
 
 const Context = React.createContext<NotebookService | undefined>(undefined);
 
@@ -27,21 +33,27 @@ function NotebooksProvider({ children }: { children: React.ReactNode }) {
   return <Context.Provider value={service}>{children}</Context.Provider>;
 }
 
-export function useNotebooks() {
-  const service = React.useContext(Context);
-  const list = React.useMemo(() => service?.getList() ?? [], [service]);
-
-  React.useDebugValue(list);
-
-  return list;
-}
-
 export function useNotebookService() {
-  const service = React.useContext(Context);
+  const service = React.useContext(Context) as NotebookService;
 
   React.useDebugValue(service);
 
   return service;
+}
+
+export function useDefaultNotebook(type: DefaultNotebookType) {
+  const ref = React.useRef(DEFAULT_NOTEBOOKS.find((d) => d.id === DEFAULT_NOTEBOOKS_ID[type]));
+
+  return ref.current as DefaultNotebook;
+}
+
+export function useNotebooks() {
+  const service = useNotebookService();
+  const list = React.useMemo(() => service.getList() ?? [], [service]);
+
+  React.useDebugValue(list);
+
+  return list;
 }
 
 export default NotebooksProvider;

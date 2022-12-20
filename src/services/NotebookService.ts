@@ -1,28 +1,18 @@
 import { nanoid } from 'nanoid';
 
-export const NOTE_BOOK_ID = {
+export const DEFAULT_NOTEBOOKS_ID = {
   ALL: '1',
   PRIVATE: '2',
   RECENTLY_DELETED: '3',
 } as const;
 
-const defaultNotebooks: DefaultNotebook[] = [
-  { id: NOTE_BOOK_ID.ALL, title: 'All Notes' },
-  { id: NOTE_BOOK_ID.PRIVATE, title: 'Private Notes' },
-  { id: NOTE_BOOK_ID.RECENTLY_DELETED, title: 'Recently Deleted' },
+export const DEFAULT_NOTEBOOKS: DefaultNotebook[] = [
+  { id: DEFAULT_NOTEBOOKS_ID.ALL, title: 'All Notes' },
+  { id: DEFAULT_NOTEBOOKS_ID.PRIVATE, title: 'Private Notes' },
+  { id: DEFAULT_NOTEBOOKS_ID.RECENTLY_DELETED, title: 'Recently Deleted' },
 ];
 
-export function getDefaultAll() {
-  return defaultNotebooks[0];
-}
-
-export function getDefaultPrivate() {
-  return defaultNotebooks[1];
-}
-
-export function getDefaultRecentlyDeleted() {
-  return defaultNotebooks[2];
-}
+export type DefaultNotebookType = keyof typeof DEFAULT_NOTEBOOKS_ID;
 
 export const ACTION_TYPES = {
   ADD_BOOK: 1,

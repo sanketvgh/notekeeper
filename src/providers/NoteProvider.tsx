@@ -36,9 +36,16 @@ function NoteProvider({ children }: { children: React.ReactNode }) {
   return <Context.Provider value={service}>{children}</Context.Provider>;
 }
 
+export function useNoteService() {
+  const service = React.useContext(Context) as NoteService;
+  React.useDebugValue(service);
+
+  return service;
+}
+
 export function useNotes() {
-  const service = React.useContext(Context);
-  const list = React.useMemo(() => service?.getList() ?? [], [service]);
+  const service = useNoteService();
+  const list = React.useMemo(() => service.getList() ?? [], [service]);
 
   React.useDebugValue(list);
 

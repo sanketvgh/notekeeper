@@ -7,3 +7,5 @@ interface Notebook {
 interface DefaultNotebook extends Notebook {
   createdAt?: TimeStamp;
 }
+
+type MyNotebook = Notebook | DefaultNotebook;
