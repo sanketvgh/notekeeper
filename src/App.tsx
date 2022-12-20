@@ -1,14 +1,17 @@
 import NotebooksProvider from './providers/NotebooksProvider';
 import NoteProvider from './providers/NoteProvider';
-import './App.css';
 import Dashboard from './components/Dashborad';
+import CurrentNotebook from './providers/CurrentNotebook';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
       <NotebooksProvider>
         <NoteProvider>
-          <Dashboard />
+          <CurrentNotebook>
+            <Dashboard />
+          </CurrentNotebook>
         </NoteProvider>
       </NotebooksProvider>
     </div>
