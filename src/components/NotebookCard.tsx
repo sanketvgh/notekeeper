@@ -3,6 +3,7 @@ import React from 'react';
 type PropsType = {
   notebook: MyNotebook;
   onClick: (notebook: MyNotebook) => void;
+  className: string;
 };
 
 export default function NotebookCard(props: PropsType) {
@@ -13,7 +14,7 @@ export default function NotebookCard(props: PropsType) {
   }, [notebook, props]);
 
   return (
-    <div className="notebook" onClick={handleOnClick}>
+    <div onClick={handleOnClick} className={props.className}>
       <h4>{notebook.title}</h4>
     </div>
   );

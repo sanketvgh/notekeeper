@@ -12,15 +12,15 @@ type NoteActionType = typeof ACTION_TYPES;
 export type NoteAction = Action<NoteActionType, any>;
 
 class NoteService {
-  private dispatch: React.Dispatch<NoteAction>;
-  private notes: Note[];
+  private readonly dispatch: React.Dispatch<NoteAction>;
+  private readonly notes: Note[];
 
   constructor(notes: Note[], dispatch: React.Dispatch<NoteAction>) {
     this.notes = notes;
     this.dispatch = dispatch;
   }
 
-  createNote(bookId: ID, title: string, content: string) {
+  protected createNote(bookId: ID, title: string, content: string) {
     const payload: Note = {
       id: nanoid(),
       title,
@@ -33,7 +33,7 @@ class NoteService {
     this.dispatch({ type: ACTION_TYPES.CREATE_NOTE, payload: payload });
   }
 
-  moveTo(bookId: ID, notesIds: ID[]) {
+  protected updateNotesBookId(bookId: ID, notesIds: ID[]) {
     this.dispatch({
       type: ACTION_TYPES.MOVE_NOTES_TO_OTHER_NOTEBOOK,
       payload: {
@@ -43,20 +43,34 @@ class NoteService {
     });
   }
 
-  makeNotesPrivate(notesIds: ID[]) {
-    this.moveTo(DEFAULT_NOTEBOOKS_ID.PRIVATE, notesIds);
+  protected makeNotesPrivate(notesIds: ID[]) {
+    this.updateNotesBookId(DEFAULT_NOTEBOOKS_ID.PRIVATE, notesIds);
   }
 
-  removeNotes(notesIds: ID[]) {
-    this.moveTo(DEFAULT_NOTEBOOKS_ID.PRIVATE, notesIds);
+  protected softRemoveNotes(notesIds: ID[]) {
+    this.updateNotesBookId(DEFAULT_NOTEBOOKS_ID.RECENTLY_DELETED, notesIds);
   }
 
-  removeNotebook(note: Note) {
-    this.dispatch({ type: ACTION_TYPES.DELETE_NOTES, payload: note });
+  protected hardRemoveNote(noteId: ID) {
+    this.dispatch({ type: ACTION_TYPES.DELETE_NOTES, payload: noteId });
   }
 
-  getList() {
-    return this.notes;
+  protected formatNote(note: Note): FormattedNote {
+    return {
+      _original: note,
+      ...note,
+      createdAt: new Date(note.createdAt).toDateString(),
+      updatedAt: new Date(note.updatedAt).toDateString(),
+      lessContent: note.content.substring(0, 40) + '...',
+    };
+  }
+
+  protected formatNotes(notes: Note[]) {
+    return notes.map((note) => this.formatNote(note));
+  }
+
+  protected getNotes(bookId: ID) {
+    return this.formatNotes(this.notes.filter((note) => note.bookId === bookId));
   }
 }
 

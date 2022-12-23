@@ -9,11 +9,11 @@ function reducer(state: Note[], action: NoteAction) {
       return [...state, action.payload];
     }
     case ACTION_TYPES.DELETE_NOTES: {
-      return state.filter((note) => note.id !== action.payload.id);
+      return state.filter((note) => note.id !== action.payload);
     }
     case ACTION_TYPES.MOVE_NOTES_TO_OTHER_NOTEBOOK: {
       const newState = state.map((note) => {
-        if (action.payload.bookIds.includes(note.id)) {
+        if (action.payload.notesIds.includes(note.id)) {
           return { ...note, bookId: action.payload.bookId };
         }
 
@@ -43,9 +43,9 @@ export function useNoteService() {
   return service;
 }
 
-export function useNotes() {
+export function useNotes(bookId: ID) {
   const service = useNoteService();
-  const list = React.useMemo(() => service.getList() ?? [], [service]);
+  const list = React.useMemo(() => service.getNotes(bookId) ?? [], [bookId, service]);
 
   React.useDebugValue(list);
 

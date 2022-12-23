@@ -7,3 +7,10 @@ interface Note {
   content: string;
   isPined: boolean;
 }
+
+interface FormattedNote extends Note {
+  _original: Note;
+  createdAt: string;
+  updatedAt: string;
+  lessContent: string;
+}

@@ -31,24 +31,26 @@ class NotebookService {
     this.dispatch = dispatch;
   }
 
-  createNotebook(title: string) {
+  createNotebook(title: string): ID {
     const payload: Notebook = {
       title,
       id: nanoid(),
       createdAt: new Date().getTime(),
     };
     this.dispatch({ type: ACTION_TYPES.ADD_BOOK, payload });
+
+    return payload.id;
   }
 
   removeNotebook(notebook: Notebook) {
     this.dispatch({ type: ACTION_TYPES.REMOVE_NOTEBOOK, payload: notebook });
   }
 
-  find(currentNotebook: ID) {
+  findNotebookById(currentNotebook: ID) {
     return this.notebooks.find((book) => book.id === currentNotebook);
   }
 
-  getList() {
+  getNotebooks() {
     return this.notebooks;
   }
 }
