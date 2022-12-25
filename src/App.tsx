@@ -1,6 +1,6 @@
 import NotebooksProvider from './providers/NotebooksProvider';
 import NoteProvider from './providers/NoteProvider';
-import Dashboard from './components/Dashborad';
+import Dashboard from './components/Dashboard';
 import CurrentNotebook from './providers/CurrentNotebook';
 
 function App() {

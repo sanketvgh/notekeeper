@@ -4,7 +4,6 @@ import { useCurrentNotebook } from '../../providers/CurrentNotebook';
 import { DEFAULT_NOTEBOOKS_ID } from '../../services/NotebookService';
 import NotebookCard from '../NotebookCard';
 import s from './NotebookViewer.module.sass';
-import Action from '../Action';
 
 type PropsType = {
   isOpen: boolean;
