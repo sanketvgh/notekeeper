@@ -20,7 +20,7 @@ class NoteService {
     this.dispatch = dispatch;
   }
 
-  protected createNote(bookId: ID, title: string, content: string) {
+  public createNote(bookId: ID, title: string, content: string) {
     const payload: Note = {
       id: nanoid(),
       title,
@@ -33,7 +33,7 @@ class NoteService {
     this.dispatch({ type: ACTION_TYPES.CREATE_NOTE, payload: payload });
   }
 
-  protected updateNotesBookId(bookId: ID, notesIds: ID[]) {
+  public updateNotesBookId(bookId: ID, notesIds: ID[]) {
     this.dispatch({
       type: ACTION_TYPES.MOVE_NOTES_TO_OTHER_NOTEBOOK,
       payload: {
@@ -43,19 +43,19 @@ class NoteService {
     });
   }
 
-  protected makeNotesPrivate(notesIds: ID[]) {
+  public makeNotesPrivate(notesIds: ID[]) {
     this.updateNotesBookId(DEFAULT_NOTEBOOKS_ID.PRIVATE, notesIds);
   }
 
-  protected softRemoveNotes(notesIds: ID[]) {
+  public softRemoveNotes(notesIds: ID[]) {
     this.updateNotesBookId(DEFAULT_NOTEBOOKS_ID.RECENTLY_DELETED, notesIds);
   }
 
-  protected hardRemoveNote(noteId: ID) {
+  public hardRemoveNote(noteId: ID) {
     this.dispatch({ type: ACTION_TYPES.DELETE_NOTES, payload: noteId });
   }
 
-  protected formatNote(note: Note): FormattedNote {
+  public formatNote(note: Note): FormattedNote {
     return {
       _original: note,
       ...note,
@@ -65,11 +65,11 @@ class NoteService {
     };
   }
 
-  protected formatNotes(notes: Note[]) {
+  public formatNotes(notes: Note[]) {
     return notes.map((note) => this.formatNote(note));
   }
 
-  protected getNotes(bookId: ID) {
+  public getNotes(bookId: ID) {
     return this.formatNotes(this.notes.filter((note) => note.bookId === bookId));
   }
 }
