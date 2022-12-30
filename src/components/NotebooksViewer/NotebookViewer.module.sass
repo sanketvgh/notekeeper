@@ -27,6 +27,7 @@
     text-align: center
     color: white
     padding: 20px 0
+    font-size: 1.2rem
 
   .notebooks
     display: grid
@@ -38,6 +39,7 @@
     .notebook
       width: 180px
       height: 264px
+      font-size: 1rem
       background: lighten($primary-dark, 10%)
       border-radius: 12px
       display: flex
@@ -49,6 +51,5 @@
       &:last-child
         margin: 0
       &.selected
-        outline: 2px solid #6bb0ff
-        box-shadow: 0 4px 14px 0 rgb(0 118 255 / 39%)
+        outline: 4px solid lighten($primary-dark, 40%)
 

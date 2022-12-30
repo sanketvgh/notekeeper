@@ -7,7 +7,7 @@ export const DEFAULT_NOTEBOOKS_ID = {
 } as const;
 
 export const DEFAULT_NOTEBOOKS: DefaultNotebook[] = [
-  { id: DEFAULT_NOTEBOOKS_ID.ALL, title: 'All Notes' },
+  { id: DEFAULT_NOTEBOOKS_ID.ALL, title: 'My Notes' },
   { id: DEFAULT_NOTEBOOKS_ID.PRIVATE, title: 'Private Notes' },
   { id: DEFAULT_NOTEBOOKS_ID.RECENTLY_DELETED, title: 'Recently Deleted' },
 ];
